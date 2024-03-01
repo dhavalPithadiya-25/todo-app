@@ -72,6 +72,7 @@ abstract interface class AppTheme {
 
   static InputDecorationTheme _inputDecorationTheme(ColorScheme colorScheme) {
     return const InputDecorationTheme(
+      errorStyle: TextStyle(fontWeight: FontWeight.w500),
       contentPadding: EdgeInsets.all(Spacing.normal),
       alignLabelWithHint: true,
       border: OutlineInputBorder(borderRadius: BorderRadius.all(RadiusValues.small)),

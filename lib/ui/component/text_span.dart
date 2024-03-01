@@ -29,7 +29,6 @@ class LinkText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = context.colorScheme;
-
     return Text.rich(
       TextSpan(
         children: listSpan.map((span) {
