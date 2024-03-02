@@ -33,6 +33,6 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   }
 
   void _onSubmit() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const VerificationView()));
+    //Navigator.push(context, MaterialPageRoute(builder: (context) => const VerificationView()));
   }
 }

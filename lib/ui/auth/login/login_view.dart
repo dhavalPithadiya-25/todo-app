@@ -3,12 +3,20 @@ part of './login.dart';
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
 
+  static const routeName = "/login";
+
   @override
   Widget build(BuildContext context) {
-    return const AuthLayout(
-      content: _LoginForm(),
-      title: "Login",
-      hasBackButton: false,
+    return ChangeNotifierProvider(
+      create: (context) => LoginProvider(
+        context: context,
+        loadingHandler: LoadingHandler(context: context),
+      ),
+      child: const AuthLayout(
+        content: _LoginForm(),
+        title: "Login",
+        hasBackButton: false,
+      ),
     );
   }
 }
@@ -54,14 +62,15 @@ class _LoginFormState extends State<_LoginForm> {
               ),
             ),
             const Gap(Spacing.medium),
-            PrimaryButton(
-              label: "Login",
-              onPressed: () {},
-            ),
+            PrimaryButton(label: "Login", onPressed: _onLogin),
             const Gap(Spacing.normal),
             const TextDivider(text: "OR"),
             const Gap(Spacing.normal),
-            PrimaryButton.outlinedIcon(label: "Sign in with Goggle", icon: AppIcons.googleLogo, onPressed: () {}),
+            PrimaryButton.outlinedIcon(
+              label: "Sign in with Goggle",
+              icon: AppIcons.googleLogo,
+              onPressed: context.read<LoginProvider>().onGoggleSignIn,
+            ),
             const Gap(Spacing.normal),
             PrimaryButton.outlined(label: "Sign in as Guest", onPressed: () {}),
             const Gap(Spacing.xLarge),
@@ -80,6 +89,14 @@ class _LoginFormState extends State<_LoginForm> {
         ),
       ),
     );
+  }
+
+  void _onLogin() {
+    if (!_formKey.currentState!.validate()) return;
+    context.read<LoginProvider>().onLogin(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
   }
 
   void _onForgotPassword() {

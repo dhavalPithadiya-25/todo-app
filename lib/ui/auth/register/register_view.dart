@@ -3,6 +3,8 @@ part of './register.dart';
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
 
+  static const routeName = "/register";
+
   @override
   State<RegisterView> createState() => _RegisterViewState();
 }
@@ -11,12 +13,16 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => RegisterProvider(),
+      create: (context) => RegisterProvider(
+        context: context,
+        loadingHandler: LoadingHandler(context: context),
+      ),
       child: const AuthLayout(
-          content: SingleChildScrollView(
-            child: _RegisterForm(),
-          ),
-          title: "Create an account"),
+        content: SingleChildScrollView(
+          child: _RegisterForm(),
+        ),
+        title: "Create an account",
+      ),
     );
   }
 }
@@ -106,7 +112,7 @@ class _RegisterFormState extends State<_RegisterForm> {
   }
 
   void _onRegister() {
-    //if (!(_formKey.currentState!.validate())) return;
+    if (!(_formKey.currentState!.validate())) return;
     final createdAt = DateTime.now();
     context.read<RegisterProvider>().onRegister(
           firstName: _firstNameController.text.trim(),

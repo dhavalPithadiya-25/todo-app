@@ -11,6 +11,8 @@ extension BuildContextExtension on BuildContext {
 
   EdgeInsets get mediaQueryInsets => MediaQuery.of(this).viewInsets;
 
+  NavigatorState get navigator => Navigator.of(this);
+
   double get height => mediaQuery.size.height;
 
   double get width => mediaQuery.size.width;
